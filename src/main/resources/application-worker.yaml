@@ -1,0 +1,19 @@
+spring:
+  main:
+    web-application-type: none
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: ${SPRING_KAFKA_CONSUMER_GROUP_ID:notification-service}
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+app:
+  kafka:
+    topics:
+      appointment-notification: ${APP_KAFKA_TOPIC_APPOINTMENT_NOTIFICATION:scheduling.appointment.notification}
+    retry:
+      attempts: ${APP_KAFKA_RETRY_ATTEMPTS:4}
+      retry-topic-suffix: ${APP_KAFKA_RETRY_TOPIC_SUFFIX:-retry}
+      dlq-topic-suffix: ${APP_KAFKA_DLQ_TOPIC_SUFFIX:-dlq}
